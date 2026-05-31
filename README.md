@@ -23,7 +23,7 @@ repositories {
 Tambahkan dependensi di tingkat aplikasi/modul:
 ```groovy
 dependencies {
-    implementation 'com.github.MrLow12:zakkistore-sdk-java:v1.0.1'
+    implementation 'com.github.MrLow12:zakkistore-sdk-java:1.0.1'
 }
 ```
 
@@ -44,7 +44,7 @@ Tambahkan dependensi:
 <dependency>
     <groupId>com.github.MrLow12</groupId>
     <artifactId>zakkistore-sdk-java</artifactId>
-    <version>v1.0.1</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
