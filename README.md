@@ -57,8 +57,10 @@ Tambahkan dependensi:
 import store.zakki.sdk.ZakkiStore;
 
 ZakkiStore zakki = new ZakkiStore(
+    "https://qris.zakki.store", // URL API Server
     "API_TOKEN_ANDA",       // Token API
     "IBO99",                // iduser
+    "member@gmail.com",     // email
     "123456",               // PIN transaksi (Wajib untuk tabung/tarik)
     true                    // Aktifkan auto-withdraw
 );
@@ -69,8 +71,10 @@ ZakkiStore zakki = new ZakkiStore(
 import store.zakki.sdk.ZakkiStore
 
 val zakki = ZakkiStore(
+    baseUrlOrToken = "https://qris.zakki.store",
     token = "API_TOKEN_ANDA",
     iduser = "IBO99",
+    email = "member@gmail.com",
     pin = "123456",
     autoWithdraw = true
 )
