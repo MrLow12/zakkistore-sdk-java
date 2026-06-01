@@ -89,48 +89,60 @@ Jika opsi `autoWithdraw = true` diaktifkan, SDK akan memicu penarikan dana VA ba
 
 ---
 
-## 📑 Daftar Referensi Metode Lengkap
+## 📑 Daftar Referensi Metode Lengkap & Struktur Pengelompokan (36 Fungsi Resmi)
 
-SDK Java ini mendukung secara penuh seluruh **25 fungsi resmi** dengan nama dan perilaku yang konsisten dengan SDK versi Node.js (NPM):
+Seluruh fungsi yang didukung oleh SDK ini dikelompokkan secara rapi ke dalam 7 kategori layanan utama demi mempermudah pemahaman dan integrasi:
 
-### 1. Payment Gateway (QRIS Top Up)
-*   `zakki.topup(nominal)` — Membuat QRIS dinamis instan dengan nominal kode unik.
-*   `zakki.cektopup(idtopup)` — Cek status pembayaran QRIS.
-*   `zakki.cancel(id_transaksi, all_pending)` — Batalkan transaksi pending.
+### 1. ⚡ Layanan Payment Gateway (QRIS Topup) — [4 Fungsi]
+*   **`zakki.topup(nominal)`** — Membuat tiket pembayaran QRIS dinamis instan dengan nominal kode unik.
+*   **`zakki.cektopup(idtopup)`** — Mengecek status pembayaran tiket QRIS tertentu secara real-time.
+*   **`zakki.mytopup()`** — Mengambil seluruh riwayat transaksi topup QRIS akun Anda.
+*   **`zakki.cancel(id_transaksi, all_pending)`** — Membatalkan satu atau seluruh tiket topup pending.
 
-### 2. Transaksi H2H
-*   `zakki.listkode(jenis, product_type)` — Katalog kode produk aktif, deskripsi, dan harga.
-*   `zakki.h2h(kode, tujuan, refID)` — Mengirim order transaksi H2H (Mendukung Map parameter).
-*   `zakki.cekh2h(id_trx)` — Cek detail status pengisian, SN, dan harga beli order H2H.
-*   `zakki.myh2h()` — Mengambil 20 riwayat pembelian H2H terupdate.
+### 2. 🏪 Layanan Transaksi Host-to-Host (H2H) — [4 Fungsi]
+*   **`zakki.listkode(jenis, product_type)`** — Mengambil katalog produk prabayar/pascabayar aktif beserta daftar harga beli.
+*   **`zakki.h2h(kode, tujuan, refID)`** — Mengirimkan order transaksi H2H (pulsa, paket data, PLN kustom, dll).
+*   **`zakki.cekh2h(id_trx)`** — Mengecek status transaksi, Serial Number (SN), dan harga beli riil dari order H2H.
+*   **`zakki.myh2h()`** — Mengambil 20 riwayat transaksi H2H terupdate milik akun Anda.
 
-### 3. Perbankan & Transfer VA
-*   `zakki.checkbank()` — Cek saldo, VA member, mutasi, dan pemicu Auto-Withdraw.
-*   `zakki.checkname(number)` — Verifikasi nama asli pemilik VA Bank Zakki tujuan.
-*   `zakki.transfer(to, amount)` — Transfer saldo antar Virtual Account member Bank Zakki (Mendukung Map parameter).
-*   `zakki.tabung(jumlah)` — Menabung / deposit saldo dari aplikasi zakki store ke Bank (butuh PIN).
-*   `zakki.tarik(jumlah)` — Menarik dana tabungan ke saldo aplikasi (butuh PIN).
-*   `zakki.checkmutasi(mutasi_type)` — Riwayat mutasi Tarik/Tabung (`tarik`, `tabung`, `all`).
+### 3. 🏦 Layanan Perbankan & Transfer Saldo VA — [8 Fungsi]
+*   **`zakki.checkbank()`** — Memeriksa detail Virtual Account (VA), saldo bank VA, serta memicu Auto-Withdraw jika diaktifkan.
+*   **`zakki.checkname(number)`** — Memverifikasi nama asli pemilik rekening Virtual Account tujuan sebelum melakukan transfer.
+*   **`zakki.transfer(to, amount)`** — Mengirimkan saldo antar-VA member secara instan dan bebas biaya admin.
+*   **`zakki.tabung(jumlah)`** — Menyetorkan saldo aktif aplikasi ke rekening bank Virtual Account terhubung Anda.
+*   **`zakki.tarik(jumlah)`** — Menarik dana dari bank Virtual Account ke saldo aktif aplikasi Zakki Store Anda.
+*   **`zakki.checkmutasi(mutasi_type)`** — Melihat riwayat mutasi tabung/tarik saldo bank VA (`all`, `tarik`, `tabung`).
+*   **`zakki.checktransfer(idtransfer)`** — Mengecek status pengiriman dana transfer tertentu secara detail.
+*   **`zakki.mytransfer(type)`** — Mengambil riwayat pengiriman dan penerimaan transfer saldo (`all`, `kirim`, `terima`).
 
-### 4. Noktel Marketplace (OTP Virtual)
-*   `zakki.noktelStok()` — Cek stok nomor virtual yang ready.
-*   `zakki.noktelBuy(category)` — Membeli nomor virtual baru untuk OTP.
-*   `zakki.noktelGetOtp(account_id)` — Menarik kode OTP Telegram secara real-time.
-*   `zakki.noktelCancel(invoice_id)` — Membatalkan nomor yang pending OTP & auto-refund.
-*   `zakki.noktelHistory()` — Mengambil daftar riwayat pembelian Noktel.
+### 4. 📱 Layanan Noktel Marketplace (OTP Virtual) — [5 Fungsi]
+*   **`zakki.noktelStok()`** — Memeriksa ketersediaan stok nomor virtual aktif per kategori layanan/aplikasi.
+*   **`zakki.noktelBuy(category)`** — Membeli nomor virtual baru untuk penerimaan kode verifikasi/OTP.
+*   **`zakki.noktelGetOtp(account_id)`** — Mengambil kode verifikasi/OTP yang masuk ke nomor virtual secara real-time.
+*   **`zakki.noktelCancel(invoice_id)`** — Membatalkan order nomor virtual yang pending OTP dan memicu auto-refund saldo.
+*   **`zakki.noktelHistory()`** — Mengambil daftar riwayat lengkap pemesanan nomor virtual.
 
-### 5. Reward Komputasi & Game
-*   `zakki.cekmining()` — Cek status kesulitan global, block reward, dan miner aktif.
-*   `zakki.mymining()` — Riwayat koin mining SHA256 milik akun Anda.
-*   `zakki.cekgacha()` — Statistik poin, kemenangan, dan keuntungan gacha member.
+### 5. ⛏️ Layanan Reward Komputasi SHA-256 (Mining) & Game — [5 Fungsi]
+*   **`zakki.miningStart()`** — Meminta challenge penambangan SHA-256 serta target kesulitan (difficulty) dari server.
+*   **`zakki.miningSubmit(nonce, signature)`** — Mengirimkan hasil kerja hashing SHA-256 (Proof-of-Work) untuk mendapatkan koin.
+*   **`zakki.cekmining(idmining)`** — Mengecek status audit dan persetujuan dari blok mining yang telah Anda selesaikan.
+*   **`zakki.mymining()`** — Melihat riwayat penambangan koin dan total reward hashing akun Anda.
+*   **`zakki.cekgacha()`** — Mengecek jumlah tiket gacha, riwayat kemenangan, dan detail koin keberuntungan Anda.
 
-### 6. Keamanan & Utilitas
-*   `zakki.whitelistip(ip)` — Whitelist IP server Anda untuk otorisasi API H2H.
-*   `zakki.delwhitelistip(ip)` — Hapus IP server dari whitelist.
-*   `zakki.leaderboard(limit, period)` — Mengambil peringkat sultan topup teraktif.
-*   `zakki.status()` — Informasi beban CPU, metrik finansial, dan kesehatan sistem.
+### 6. 🔒 Layanan Keamanan IP & Utilitas — [6 Fungsi]
+*   **`zakki.whitelistip(ip)`** — Mendaftarkan IP server/host Anda agar diizinkan melakukan transaksi H2H via API (Maksimal 3 IP).
+*   **`zakki.delwhitelistip(ip)`** — Menghapus alamat IP terdaftar dari whitelist API.
+*   **`zakki.cekmyip()`** — Mendeteksi alamat IP publik host/server Anda saat ini yang terbaca oleh sistem.
+*   **`zakki.cekip(ip)`** — Mengecek detail status IP whitelisting tertentu.
+*   **`zakki.leaderboard(limit, period)`** — Melihat daftar Sultan topup teraktif secara global.
+*   **`zakki.status()`** — Memeriksa beban CPU server, statistik finansial global, dan kesehatan sistem.
 
----
+### 7. 🔗 Layanan Webhook Callback & Notifikasi Bot — [4 Fungsi]
+*   **`zakki.setcallback(site)`** — Memasang URL callback real-time untuk menerima laporan status transaksi H2H.
+*   **`zakki.delcallback()`** — Menghapus URL callback yang terpasang di sistem.
+*   **`zakki.setnotifbot(telegramId)`** — Memasang ID Telegram Anda untuk menerima notifikasi otomatis transaksi sukses/gagal.
+*   **`zakki.delnotifbot()`** — Menonaktifkan bot notifikasi Telegram.
+
 
 ## 🛡️ Protokol Keamanan API
 
