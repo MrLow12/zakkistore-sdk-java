@@ -85,7 +85,7 @@ val zakki = ZakkiStore(
 ## 🛠️ Fitur Unggulan
 
 ### 🔄 Auto-Withdraw Saldo VA
-Jika opsi `autoWithdraw = true` diaktifkan, SDK akan memicu penarikan dana VA bank otomatis secara *real-time* menjadi saldo utama aplikasi (Zakki Store) ketika fungsi `checkbank()` dipanggil.
+Jika opsi `autoWithdraw = true` diaktifkan, SDK akan memicu penarikan dana VA bank otomatis secara *real-time* menjadi saldo utama aplikasi zakki store ketika fungsi `checkbank()` dipanggil.
 
 ---
 
@@ -108,7 +108,7 @@ SDK Java ini mendukung secara penuh seluruh **25 fungsi resmi** dengan nama dan 
 *   `zakki.checkbank()` — Cek saldo, VA member, mutasi, dan pemicu Auto-Withdraw.
 *   `zakki.checkname(number)` — Verifikasi nama asli pemilik VA Bank Zakki tujuan.
 *   `zakki.transfer(to, amount)` — Transfer saldo antar Virtual Account member Bank Zakki (Mendukung Map parameter).
-*   `zakki.tabung(jumlah)` — Menabung / deposit saldo dari aplikasi utama (Zakki Store) ke Bank (butuh PIN).
+*   `zakki.tabung(jumlah)` — Menabung / deposit saldo dari aplikasi zakki store ke Bank (butuh PIN).
 *   `zakki.tarik(jumlah)` — Menarik dana tabungan ke saldo aplikasi (butuh PIN).
 *   `zakki.checkmutasi(mutasi_type)` — Riwayat mutasi Tarik/Tabung (`tarik`, `tabung`, `all`).
 

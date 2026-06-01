@@ -324,9 +324,12 @@ public class ZakkiStore {
     // --- 5. REWARD KOMPUTASI & UTILITY ---
     // ==========================================================
 
-    public Map<String, Object> cekmining() {
+    public Map<String, Object> cekmining(String idmining) {
+        if (idmining == null || idmining.isEmpty()) {
+            throw new IllegalArgumentException("Parameter idmining wajib diisi.");
+        }
         Map<String, Object> payload = new HashMap<>();
-        payload.put("token", this.token);
+        payload.put("idmining", idmining.trim());
         return _request("/cekmining", "GET", payload);
     }
 
@@ -336,11 +339,35 @@ public class ZakkiStore {
         return _request("/mymining", "GET", payload);
     }
 
+    public Map<String, Object> miningStart() {
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("token", this.token);
+        return _request("/mining/start", "GET", payload);
+    }
+
+    public Map<String, Object> miningSubmit(Object nonce, String signature) {
+        if (nonce == null) {
+            throw new IllegalArgumentException("Parameter nonce wajib disertakan.");
+        }
+        if (signature == null || signature.isEmpty()) {
+            throw new IllegalArgumentException("Parameter signature wajib disertakan.");
+        }
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("token", this.token);
+        payload.put("nonce", nonce);
+        payload.put("signature", signature);
+        return _request("/mining/submit", "POST", payload);
+    }
+
     public Map<String, Object> cekgacha() {
         Map<String, Object> payload = new HashMap<>();
         payload.put("token", this.token);
         return _request("/cekgacha", "GET", payload);
     }
+
+    // ==========================================================
+    // --- 6. UTILITY & SECURITY ---
+    // ==========================================================
 
     public Map<String, Object> whitelistip(String ip) {
         Map<String, Object> payload = new HashMap<>();
@@ -373,6 +400,69 @@ public class ZakkiStore {
 
     public Map<String, Object> status() {
         return _request("/status", "GET", null);
+    }
+
+    // ==========================================================
+    // --- 7. METODE INTEGRASI BARU ---
+    // ==========================================================
+
+    public Map<String, Object> setcallback(String site) {
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("token", this.token);
+        payload.put("site", site != null ? site.trim() : "");
+        return _request("/setcallback", "GET", payload);
+    }
+
+    public Map<String, Object> delcallback() {
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("token", this.token);
+        return _request("/delcallback", "GET", payload);
+    }
+
+    public Map<String, Object> setnotifbot(Object telegramId) {
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("token", this.token);
+        payload.put("id", telegramId != null ? telegramId.toString().trim() : "");
+        return _request("/setnotifbot", "GET", payload);
+    }
+
+    public Map<String, Object> delnotifbot() {
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("token", this.token);
+        return _request("/delnotifbot", "GET", payload);
+    }
+
+    public Map<String, Object> checktransfer(String idtransfer) {
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("idtransfer", idtransfer != null ? idtransfer.trim() : "");
+        return _request("/checktransfer", "GET", payload);
+    }
+
+    public Map<String, Object> mytransfer() {
+        return mytransfer("all");
+    }
+
+    public Map<String, Object> mytransfer(String type) {
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("token", this.token);
+        payload.put("type", type != null ? type.trim() : "all");
+        return _request("/mytransfer", "GET", payload);
+    }
+
+    public Map<String, Object> mytopup() {
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("token", this.token);
+        return _request("/mytopup", "GET", payload);
+    }
+
+    public Map<String, Object> cekmyip() {
+        return _request("/cekmyip", "GET", null);
+    }
+
+    public Map<String, Object> cekip(String ip) {
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("ip", ip != null ? ip.trim() : "");
+        return _request("/cekip", "GET", payload);
     }
 
     // ==========================================================
