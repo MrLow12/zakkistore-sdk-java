@@ -79,6 +79,16 @@ public class ZakkiStore {
         return _request("/cektopup", "GET", payload);
     }
 
+    public String cektopup2(String idtopup) {
+        try {
+            String cleanUrl = this.baseUrl.replaceAll("/$", "");
+            return cleanUrl + "/cektopup2?idtopup=" + java.net.URLEncoder.encode(idtopup, "UTF-8");
+        } catch (java.io.UnsupportedEncodingException e) {
+            String cleanUrl = this.baseUrl.replaceAll("/$", "");
+            return cleanUrl + "/cektopup2?idtopup=" + idtopup;
+        }
+    }
+
     public Map<String, Object> cancel() {
         return cancel(null, false);
     }
